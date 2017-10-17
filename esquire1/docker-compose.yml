@@ -1,0 +1,28 @@
+version: "3.2"
+volumes:
+  mongostore:
+services:
+  app:
+    image: esquire/app
+    container_name: esquire-app
+    build:
+      context: ./
+      dockerfile: dockerfiles/Dockerfile-compose
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongodb
+      - sqlserver
+  sqlserver:
+    image: microsoft/mssql-server-linux
+    container_name: esquire-sqlserver
+    environment:
+      SA_PASSWORD: "1qazXSW@."
+      ACCEPT_EULA: "Y"
+  mongodb:
+    image: mongo:latest
+    container_name: esquire-db
+    volumes:
+      - mongostore:/data/db
+    ports:
+      - 27017:27017

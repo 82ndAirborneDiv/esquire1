@@ -1,0 +1,55 @@
+﻿FROM microsoft/mssql-server-linux:latest
+
+## Required for SQL Server
+ENV ACCEPT_EULA="Y"
+ENV SA_PASSWORD="1qazXSW@."
+ENV DEBIAN_FRONTEND noninteractive
+ENV DOTNET_VERSION 2.0.0
+ENV DOTNET_DOWNLOAD_URL http://dotnetcli.blob.core.windows.net/dotnet/Runtime/$DOTNET_VERSION/dotnet-runtime-$DOTNET_VERSION-linux-x64.tar.gz
+ENV DOTNET_DOWNLOAD_SHA 2D4A3F8CB275C6F98EC7BE36BEF93A3B4E51CC85C418B9F6A5EEF7C4E0DE53B36587AF5CE23A56BC6584B1DE9265C67C0C3136430E02F47F44F9CFE194219178
+ENV ASPNETCORE_RUNTIMESTORE_DOWNLOAD_URL http://dist.asp.net/runtimestore/2.0.0/linux-x64/aspnetcore.runtimestore.tar.gz
+ENV ASPNETCORE_PKG_VERSION 2.0.0
+
+## Install .NET Core dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       ca-certificates \
+       curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl http://packages.microsoft.com/keys/microsoft.asc | \
+    gpg --dearmor > microsoft.gpg \
+    && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
+    && echo "deb [arch=amd64] http://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" \
+       > /etc/apt/sources.list.d/dotnetdev.list \
+    && apt-get update \
+    && apt-get install -y dotnet-sdk-2.0.0 \
+    && rm -rf /var/lib/apt/lists/*
+
+#RUN /opt/mssql/bin/mssql-conf setup
+
+## Install MongoDB
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 \
+    && echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" \
+     > /etc/apt/sources.list.d/mongodb-org-3.4.list \
+    && apt-get update \
+    && apt-get install -y mongodb-org \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
+    && apt-get install -y build-essential \
+    && apt-get install -y nodejs \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
+    && npm update -g npm \
+    && npm install -g --no-optional webpack
+
+# Define working directory.
+WORKDIR /data
+
+## Install SQL Server for Linux
+#RUN  echo "deb [arch=amd64] http://packages.microsoft.com/ubuntu/16.04/mssql-server xenial main" \
+ #    > /etc/apt/sources.list.d/mssql-server.list \ 
+ #   && curl http://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+ #   && apt-get update \
+ #   && apt-get install -y mssql-server \
+ #   && rm -rf /var/lib/apt/lists/*
