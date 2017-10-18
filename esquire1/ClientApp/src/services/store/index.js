@@ -1,13 +1,17 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { createLogicMiddleware } from 'redux-logic'
-import rootReducer from '../../reducer'
+import { homeLogic } from 'scenes/Home/logic'
+import rootReducer from 'reducer'
 
 const INITIAL_STATE = {}
 
 const store = createStore(
   rootReducer,
-  INITIAL_STATE
-  //applyMiddleware(createLogicMiddleware()) // we should add api dependency to the logic middleware
-)
+  INITIAL_STATE,
+  compose(
+    applyMiddleware(createLogicMiddleware([homeLogic])),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
 
 export default store

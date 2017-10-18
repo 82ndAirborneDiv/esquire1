@@ -4,8 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('./paths')
 const path = require('path')
 
-module.exports = function makeConfig(env) {
-  if (!env) { env = { 'process.env.ASPNETCORE_ENVIRONMENT': 'Development' } }
+module.exports = function makeConfig() {
+  let env = require('./env')('development')
+
   return {
     devtool: 'cheap-module-source-map',
     entry: {

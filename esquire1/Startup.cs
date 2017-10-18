@@ -21,6 +21,7 @@ namespace esquire1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
             var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
             var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "1qazXSW@.";
@@ -48,6 +49,12 @@ namespace esquire1
             }
 
             app.UseStaticFiles();
+            app.UseCors(builder => {
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.AllowCredentials();
+                builder.AllowAnyOrigin();
+            });
 
             app.UseMvc(routes =>
             {

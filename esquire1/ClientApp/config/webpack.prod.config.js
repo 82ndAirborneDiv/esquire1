@@ -7,8 +7,9 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const paths = require('./paths')
 const path = require('path')
 
-module.exports = function makeConfig(env) {
-  if (!env) { env = {} }
+module.exports = function makeConfig() {
+  let env = require('./env')('production')
+
   return {
     devtool: 'source-map',
     entry: {
