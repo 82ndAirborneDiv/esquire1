@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using esquire1.Models;
+using  esquire1.Data;
 
 namespace esquire1.Controllers {
     [Route("api/[controller]s")]
@@ -10,13 +11,6 @@ namespace esquire1.Controllers {
 
         public ProjectController(ProjectContext context) {
             _context = context;
-
-            if (_context.Projects.Count() == 0) {
-                _context.Projects.Add(new Project { Name = "Project1" });
-                _context.Projects.Add(new Project { Name = "Project2" });
-                _context.Projects.Add(new Project { Name = "Project3" });
-                _context.SaveChanges();
-            }
         }
 
         [HttpOptions]

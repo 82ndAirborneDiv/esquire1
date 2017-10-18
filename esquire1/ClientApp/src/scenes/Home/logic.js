@@ -9,7 +9,7 @@ export const homeLogic = createLogic({
   async process({}, dispatch, done) {
     try {
       await axios.get(`${APP_API_URL}/projects`)
-        .then(res => res.data.projects)
+        .then(res => res.data)
         .then(projects => dispatch(actions.getProjectsSuccess(projects)))
         .then(() => done())
     } catch(err) {
