@@ -1,8 +1,11 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using esquire1.Models;
 
 namespace esquire1
 {
@@ -19,6 +22,11 @@ namespace esquire1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
+            var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "1qazXSW@.";
+            var connString = $"Data Source={hostname};Initial Catalog=Esquire1;User ID=sa;Password={password};";
+
+            services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,7 +38,8 @@ namespace esquire1
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true,
-                    ReactHotModuleReplacement = true
+                    ReactHotModuleReplacement = true,
+                    ConfigFile = System.IO.Path.Combine("ClientApp", "config", "webpack.dev.config.js")
                 });
             }
             else

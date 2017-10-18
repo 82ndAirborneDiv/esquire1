@@ -5,6 +5,7 @@ const paths = require('./paths')
 const path = require('path')
 
 module.exports = function makeConfig(env) {
+  if (!env) { env = { 'process.env.ASPNETCORE_ENVIRONMENT': 'Development' } }
   return {
     devtool: 'cheap-module-source-map',
     entry: {
@@ -22,7 +23,7 @@ module.exports = function makeConfig(env) {
       extensions: ['.js', '.jsx'],
       modules: [
         paths.appSrc,
-        'node_modules'
+        path.join(__dirname, '..', '..', 'node_modules'),
       ]
     },
 
@@ -55,7 +56,8 @@ module.exports = function makeConfig(env) {
                     plugins: [
                       require('babel-plugin-transform-runtime'),
                       require('babel-plugin-transform-object-assign'),
-                      require('babel-plugin-transform-object-rest-spread')]
+                      require('babel-plugin-transform-object-rest-spread')
+                    ]
                   }
                 }
               ],
@@ -114,8 +116,6 @@ module.exports = function makeConfig(env) {
         jQuery: 'jquery',
         jquery: 'jquery',
       }),
-
-      new webpack.HotModuleReplacementPlugin(),
 
       new webpack.DefinePlugin(env)
     ]

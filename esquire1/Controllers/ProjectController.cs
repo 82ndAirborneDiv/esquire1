@@ -3,19 +3,15 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using esquire1.Models;
 
-namespace esquire1.Controllers
-{
-    [Route("api/[controller]")]
-    public class ProjectsController : Controller
-    {
+namespace esquire1.Controllers {
+    [Route("api/[controller]s")]
+    public class ProjectController : Controller {
         private readonly ProjectContext _context;
 
-        public ProjectsController(ProjectContext context)
-        {
+        public ProjectController(ProjectContext context) {
             _context = context;
 
-            if (_context.Projects.Count() == 0)
-            {
+            if (_context.Projects.Count() == 0) {
                 _context.Projects.Add(new Project { Name = "Project1" });
                 _context.Projects.Add(new Project { Name = "Project2" });
                 _context.Projects.Add(new Project { Name = "Project3" });
@@ -25,14 +21,12 @@ namespace esquire1.Controllers
 
         [HttpOptions]
         [HttpGet]
-        public IEnumerable<Project> GetAll()
-        {
+        public IEnumerable<Project> GetAll() {
             return _context.Projects.ToList();
         }
 
         [HttpGet("{id}", Name = "GetProjects")]
-        public IActionResult GetById(long id)
-        {
+        public IActionResult GetById(long id) {
             var item = _context.Projects.FirstOrDefault(t => t.Id == id);
             if (item == null)
             {
@@ -42,10 +36,8 @@ namespace esquire1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Project project)
-        {
-            if (project == null)
-            {
+        public IActionResult Create([FromBody] Project project) {
+            if (project == null) {
                 return BadRequest();
             }
 
@@ -56,16 +48,13 @@ namespace esquire1.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] Project updatedProject)
-        {
-            if (updatedProject == null || updatedProject.Id != id)
-            {
+        public IActionResult Update(long id, [FromBody] Project updatedProject) {
+            if (updatedProject == null || updatedProject.Id != id) {
                 return BadRequest();
             }
 
             var oldProject = _context.Projects.FirstOrDefault(t => t.Id == id);
-            if (oldProject == null)
-            {
+            if (oldProject == null) {
                 return NotFound();
             }
 
@@ -78,11 +67,9 @@ namespace esquire1.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
-        {
+        public IActionResult Delete(long id) {
             var project = _context.Projects.FirstOrDefault(t => t.Id == id);
-            if (project == null)
-            {
+            if (project == null) {
                 return NotFound();
             }
 

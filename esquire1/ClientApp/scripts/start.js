@@ -1,5 +1,3 @@
-'use strict'
-
 const chalk = require('chalk')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
@@ -7,16 +5,18 @@ const dotenv = require('dotenv')
 const paths = require('../config/paths')
 
 // Taking all the variables from .env files and turning them in process.env variables
-dotenv.config()
+dotenv.config({ path: paths.appDotEnv })
+
+// We only want variables that start with APP_, so filter those out
 let env = Object.keys(process.env)
-  .filter(key => key.startsWith('APP_') || key === 'NODE_ENV')
+  .filter(key => key.startsWith('APP_'))
   .reduce((e, key) => {
     e[key] = JSON.stringify(process.env[key])
     return e
   }, {})
 
 // Environment variables
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const PORT = parseInt(process.env.APP_PORT, 10) || 3000
 const HOST = process.env.APP_HOST || '0.0.0.0'
 

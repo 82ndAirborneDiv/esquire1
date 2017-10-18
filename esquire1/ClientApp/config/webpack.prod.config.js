@@ -1,5 +1,3 @@
-'use strict'
-
 const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -7,8 +5,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const paths = require('./paths')
+const path = require('path')
 
 module.exports = function makeConfig(env) {
+  if (!env) { env = {} }
   return {
     devtool: 'source-map',
     entry: {
@@ -16,16 +16,16 @@ module.exports = function makeConfig(env) {
     },
 
     output: {
-      path: paths.appBuild,
+      path: path.join(__dirname, '..', '..', 'wwwroot', 'dist'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
-      publicPath: paths.publicPath
+      publicPath: 'dist/'
     },
 
     resolve: {
       extensions: ['.js', '.jsx'],
       modules: [
-        paths.appNodeModules,
+        path.join(__dirname, '..', '..', 'node_modules'),
         paths.appSrc
       ]
     },
