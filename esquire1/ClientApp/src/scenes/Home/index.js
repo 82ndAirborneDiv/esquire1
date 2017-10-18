@@ -4,15 +4,36 @@ import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions'
 import MainButton from 'components/Button'
+import TextInput from 'components/TextInput'
 import Grid from 'material-ui/Grid'
 
 class Home extends Component {
   constructor(props, context) {
     super(props, context)
+    
+    this.state = {
+      project: { name: '' }
+    }
+    
+    this.onProjectChange = this.onProjectChange.bind(this)
+    this.addNewProject = this.addNewProject.bind(this)
   }
 
   componentWillMount() {
     this.props.actions.getProjectsRequest()
+  }
+  
+  onProjectChange(event) {
+    const field = event.target.name
+    let project = { ...this.state.project }
+    project[field] = event.target.value
+    return this.setState({ project })
+  }
+  
+  addNewProject() { 
+    this.props.actions.addProjectRequest(this.state.project)
+    let project = { name: '' }
+    this.setState({ project })
   }
 
   render() {
@@ -28,7 +49,8 @@ class Home extends Component {
           </ul>
         </Grid>
         <Grid item>
-          <Link to="/new/project"><MainButton value="new project" color="primary"/></Link>
+          <TextInput placeholder="Enter project name" name="name" value={this.state.project.name} label="Project name" onChange={this.onProjectChange} />
+          <MainButton color="primary" value="Add project" onClick={this.addNewProject} />
         </Grid>
       </Grid>
     );
@@ -37,6 +59,5 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({ projects: state.scenes.home.projects || [] })
 const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
