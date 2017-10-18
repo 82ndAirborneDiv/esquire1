@@ -1,0 +1,6 @@
+wwwroot/dist
+node_modules
+obj/
+bin/
+start_docker_dev.sh
+start_docker_prod.sh

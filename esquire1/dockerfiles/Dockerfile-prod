@@ -1,4 +1,4 @@
-﻿FROM esquire/esquire-build AS build-env
+FROM esquire/esquire-build AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -9,11 +9,11 @@ RUN npm install
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet build -c Debug
+RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM esquire/esquire-runtime
-ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS http://*:5000
 
 # MongoDB Ports
@@ -26,13 +26,13 @@ EXPOSE 1433
 # Make directory for mongodb
 RUN mkdir -p /data/db
 
-# This is where we'll put the code
 WORKDIR /app
 
 # App port
 EXPOSE 5000
 
-COPY --from=build-env /app .
-COPY run_dev.sh .
+COPY --from=build-env /app/out .
+COPY run_prod.sh .
 
-ENTRYPOINT ["/bin/bash", "/app/run_dev.sh"]
+VOLUME ["/data/db"]
+ENTRYPOINT ["/bin/bash", "/app/run_prod.sh"]
