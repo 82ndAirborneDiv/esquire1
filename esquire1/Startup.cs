@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using esquire1.Data;
+using esquire1.Interfaces;
+using esquire1.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace esquire1 {
@@ -23,6 +25,12 @@ namespace esquire1 {
             var connString = $"Data Source={hostname};Initial Catalog=Esquire1;User ID=sa;Password={password};";
 
             services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connString));
+            services.AddTransient<IProjectMongoRepository, ProjectMongoRepository>();
+            services.Configure<Settings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
             services.AddMvc();
         }
 

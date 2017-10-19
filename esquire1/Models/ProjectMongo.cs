@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace esquire1.Models
 {
     public class ProjectMongo
     {
-        public string _id { get; set; }
-        public string name { get; set; }
-        public bool isComplete { get; set; }
+        [BsonId]
+        public string Id { get; set; }
+        public string Body { get; set; } = string.Empty;
+        public DateTime UpdatedOn { get; set; } = DateTime.Now;
+        public DateTime Createdon { get; set; } = DateTime.Now;
     }
 }
