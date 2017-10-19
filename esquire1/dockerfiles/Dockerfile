@@ -14,6 +14,7 @@ RUN dotnet build -c Debug
 # Build runtime image
 FROM esquire/esquire-runtime
 ENV ASPNETCORE_ENVIRONMENT=Development
+ENV NODE_ENV=development
 ENV ASPNETCORE_URLS http://*:5000
 
 # MongoDB Ports
@@ -33,6 +34,6 @@ WORKDIR /app
 EXPOSE 5000
 
 COPY --from=build-env /app .
-COPY run_dev.sh .
+COPY ./dockerfiles/run_dev.sh .
 
 ENTRYPOINT ["/bin/bash", "/app/run_dev.sh"]

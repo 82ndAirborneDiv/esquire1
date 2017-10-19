@@ -39,4 +39,10 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  <ItemGroup>
+    <None Remove="dockerfiles\docker-compose.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="dockerfiles\Dockerfile-compose" />
+  </ItemGroup>
 </Project>

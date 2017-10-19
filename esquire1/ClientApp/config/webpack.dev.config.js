@@ -15,7 +15,7 @@ module.exports = function makeConfig() {
 
     output: {
       path: path.join(__dirname, '..', '..', 'wwwroot', 'dist'),
-      filename: 'bundle.js',
+      filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
       publicPath: 'dist/'
     },
