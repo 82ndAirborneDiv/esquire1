@@ -91,6 +91,7 @@ $ docker exec -it esquire jest --watchAll
 ```
 
 ### Testing the backend code
+Coming soon
 
 ## Built With
 * React.js
