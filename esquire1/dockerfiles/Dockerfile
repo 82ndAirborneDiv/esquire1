@@ -26,6 +26,7 @@ EXPOSE 1433
 
 # Make directory for mongodb
 RUN mkdir -p /data/db
+RUN npm install -g jest
 
 # This is where we'll put the code
 WORKDIR /app

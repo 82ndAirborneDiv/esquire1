@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home scene it should reder correctly 1`] = `
+<withStyles(GridWrapper)
+  container={true}
+  direction="column"
+>
+  <withStyles(GridWrapper)
+    item={true}
+  >
+    <h1>
+      This is the home scene
+    </h1>
+  </withStyles(GridWrapper)>
+  <withStyles(GridWrapper)
+    item={true}
+  >
+    <h4>
+      Pulled from SQL Server:
+    </h4>
+    <ul>
+      <li
+        key="Project 1"
+      >
+        Project 1
+      </li>
+      <li
+        key="Project 2"
+      >
+        Project 2
+      </li>
+    </ul>
+  </withStyles(GridWrapper)>
+  <withStyles(GridWrapper)
+    item={true}
+  >
+    <TextInput
+      label="Project name"
+      name="name"
+      onChange={[Function]}
+      placeholder="Enter project name"
+      value=""
+    />
+    <MainButton
+      color="primary"
+      onClick={[Function]}
+      value="Add project"
+    />
+  </withStyles(GridWrapper)>
+</withStyles(GridWrapper)>
+`;
+
+exports[`Home scene it should render correctly 1`] = `
+<withStyles(GridWrapper)
+  container={true}
+  direction="column"
+>
+  <withStyles(GridWrapper)
+    item={true}
+  >
+    <h1>
+      This is the home scene
+    </h1>
+  </withStyles(GridWrapper)>
+  <withStyles(GridWrapper)
+    item={true}
+  >
+    <h4>
+      Pulled from SQL Server:
+    </h4>
+    <ul>
+      <li
+        key="Project 1"
+      >
+        Project 1
+      </li>
+      <li
+        key="Project 2"
+      >
+        Project 2
+      </li>
+    </ul>
+  </withStyles(GridWrapper)>
+  <withStyles(GridWrapper)
+    item={true}
+  >
+    <TextInput
+      label="Project name"
+      name="name"
+      onChange={[Function]}
+      placeholder="Enter project name"
+      value=""
+    />
+    <MainButton
+      color="primary"
+      onClick={[Function]}
+      value="Add project"
+    />
+  </withStyles(GridWrapper)>
+</withStyles(GridWrapper)>
+`;

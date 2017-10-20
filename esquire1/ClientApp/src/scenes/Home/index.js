@@ -7,7 +7,7 @@ import MainButton from 'components/Button'
 import TextInput from 'components/TextInput'
 import Grid from 'material-ui/Grid'
 
-class Home extends Component {
+export class Home extends Component {
   constructor(props, context) {
     super(props, context)
     
