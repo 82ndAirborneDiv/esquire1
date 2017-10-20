@@ -26,7 +26,7 @@ the solution. **You need to set Docker on your machine to use at least 4 GB of m
 SQL Server needs 4.0 GB or install. 
 
 
-### Building the Docker images
+## Building the Docker images
 Before we can run the container with the app, the docker images of the application need to be built. For your convenience,
 there are two different shell scripts: <code>start_docker_dev.sh</code> and <code>start_docker_prod.sh</code>. Each will spin up the docker container
 for Development and Production environments respectively. The first time you build either of them, it'll likely take a little 
@@ -47,7 +47,7 @@ a new image. The fourth command runs that final image in a docker container. All
 | esquire/esquire-runtime | Image used for running the solution | dockerfiles/Dockerfile-runtime
 | esquire/app | Final image that contains esquire/esquire-runtime and the build project solution | dockerfiles/Dockerfile - Development <br> dockerfiles/Dockerfile-prod - Production
 
-### Running the containers
+## Running the containers
 Now, that we've built the image, we can start the development container. The two scripts from above run the docker container 
 as the last task. The command is pretty similar for both production and development, with slight additions to the development. 
 Each command starts the container with the name esquire with the application running on <http://localhost:5000>, and exposes 
@@ -67,8 +67,30 @@ $ docker run -p 5000:5000 -p 27017:27017 -p 1433:1433 -v $(pwd)/ClientApp:/app/C
 $ docker run -p 5000:5000 -p 27017:27017 -p 1433:1433 --name esquire esquire/app
 ```
 
-### Testing
-Coming soon
+## Testing
+Testing just like building and running is also done in a docker container. 
+
+### Testing frontend code
+We use [Jest]( https://facebook.github.io/jest/) with [Enzyme](http://airbnb.io/enzyme/) for testing the React frontend code. 
+Jest as the test runner, assertion library, and mock library. Enzyme for making it easier to write React tests. Our frontend
+tests are arranged in <code>\_\_tests\_\_</code> directory for each scene, component, etc.
+
+The easiest way to test is by executing the command to test in a an already running container.
+Start the development container using the instructions above. You can either run the tests once and exit, or watch the 
+code for changes and run tests once jest detects changes. Open a new terminal and use one of the commands below to run 
+the tests.
+
+#### Run Once
+```
+$ docker exec -t esquire jest --coverage
+```
+
+#### Watch 
+```
+$ docker exec -it esquire jest --watchAll
+```
+
+### Testing the backend code
 
 ## Built With
 * React.js
