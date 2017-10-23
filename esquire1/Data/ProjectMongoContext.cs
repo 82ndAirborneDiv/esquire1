@@ -19,7 +19,7 @@ namespace esquire1.Data
 
         public IMongoCollection<ProjectMongo> ProjectMongo
         {
-            get { return _database.GetCollection<ProjectMongo>("Note"); }
+            get { return _database.GetCollection<ProjectMongo>("ProjectMongo"); }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace esquire1.Data
             }
         }
         
-        public async Task<ProjectMongo> GetProject(string id)
+        public async Task<ProjectMongo> GetProject(ObjectId id)
         {
             var filter = Builders<ProjectMongo>.Filter.Eq("Id", id);
 
@@ -51,7 +51,8 @@ namespace esquire1.Data
         {
             try
             {
-                await _context.ProjectMongo.InsertOneAsync(item);
+                await _context.ProjectMongo.InsertOneAsync(item); //TODO NEED TO RETURN THE NEW PROJECT res.data
+                
             }
             catch (Exception ex)
             {
@@ -59,7 +60,7 @@ namespace esquire1.Data
             }
         }
 
-        public async Task<DeleteResult> RemoveProject(string id)
+        public async Task<DeleteResult> RemoveProject(ObjectId id)
         {
             try
             {
@@ -71,21 +72,20 @@ namespace esquire1.Data
             }
         }
 
-        public async Task<UpdateResult> UpdateProject(string id, string body)
-        {
-            var filter = Builders<ProjectMongo>.Filter.Eq(s => s.Id, id);
-            var update = Builders<ProjectMongo>.Update
-                .Set(s => s.Body, body)
-                .CurrentDate(s => s.UpdatedOn);
-            try
-            {
-                return await _context.ProjectMongo.UpdateOneAsync(filter, update);
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
+//        public async Task<UpdateResult> UpdateProject(string id, string body)
+//        {
+//            var filter = Builders<ProjectMongo>.Filter.Eq(s => s.Id, id);
+//            var update = Builders<ProjectMongo>.Update
+//                .Set(s => s.Body, body);
+//            try
+//            {
+//                return await _context.ProjectMongo.UpdateOneAsync(filter, update);
+//            }
+//            catch(Exception ex)
+//            {
+//                throw ex;
+//            }
+//        }
 
         public async Task<DeleteResult> RemoveAllProjects()
         {
