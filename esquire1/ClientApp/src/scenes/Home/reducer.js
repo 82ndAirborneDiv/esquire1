@@ -13,6 +13,8 @@ export default function homeReducer(state = INITIAL_STATE, action) {
       }
     case types.GET_PROJECTS_REQUEST:
       return state
+    case types.ADD_PROJECT_REQUEST:
+      return state
     case types.ADD_PROJECT_SUCCESS:
       return {
         ...state, 
