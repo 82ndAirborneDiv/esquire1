@@ -1,6 +1,10 @@
 import * as types from './actionTypes'
 
-export default function homeReducer(state = {}, action) {
+const INITIAL_STATE = {
+  projects: []
+}
+
+export default function homeReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
     case types.GET_PROJECTS_SUCCESS:
       return {
