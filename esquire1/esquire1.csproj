@@ -31,7 +31,9 @@
     <Exec Command="npm install" />
     <!--<Exec Command="node node_modules/webpack/bin/webpack.js -config webpack.config.vendor.js -env.prod" />-->
     <Exec Command="node ClientApp/scripts/build.js" />
-    <!-- Include the newly-built files in the publish output -->
+    <!-- Remove dev node modules -->
+    <Exec Command="npm prune" />
+    
     <ItemGroup>
       <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">

@@ -5,7 +5,6 @@ WORKDIR /app
 COPY *.csproj ./
 COPY package.json ./
 RUN dotnet restore
-RUN npm install
 
 # Copy everything else and build
 COPY . ./
