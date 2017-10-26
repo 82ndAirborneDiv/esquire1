@@ -23,8 +23,32 @@ We are doing everything, from testing to building to running the code, in a sing
 of SQL Server, MongoDB, .NET Core 2.0 and Node on an Ubuntu container. Since the .NET Core docker images are using Debian, 
 and the mssql-server-linux image uses Ubuntu, we had to use two separate environments for build the .NET solution and running
 the solution. **You need to set Docker on your machine to use at least 4 GB of memory or it will fail to build the runtime image.**
-SQL Server needs 4.0 GB or install. 
+SQL Server needs 4.0 GB to install. 
 
+#### Environment Variables
+The frontend code is set up to use a **.env** file in the ClientApp/ directory. Any environment variables you set there will 
+visible in the process.env object in the code. 
+
+If you want the variables to be accessible in the frontend code without having to use the process.env object, prefix 
+them with APP_. Our webpack config is set up to use the DefinePlugin which makes variables that are given to it globally 
+available without the use of process.env. The project by default looks for APP_API_URL variables in the below example. If
+it doesn't find the variable, it uses http://localhost:5000/api. Example: 
+
+```
+# ClientApp/.env
+
+APP_API_URL=http://localhost:5000/api
+```
+
+```js
+// ClientApp/src/scenes/Home/logic.js
+
+axios.get(`${APP_API_URL}/projects`)
+```
+
+#### Redux devtools extension
+The frontend code is set up to use the wonderful Redux devtools extension for Chrome, if it's installed. You can get the 
+extension and learn more about it [here](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en). 
 
 ## Building the Docker images
 Before we can run the container with the app, the docker images of the application need to be built. For your convenience,
