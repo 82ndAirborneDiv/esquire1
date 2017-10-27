@@ -1,10 +1,16 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import App from 'App'
-import { BrowserRouter } from 'react-router-dom'
+import { AppContainer } from 'react-hot-loader'
 
-render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-  , document.getElementById('root'))
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component/>
+    </AppContainer>,
+    document.getElementById('root'))
+}
+
+render(App)
+
+if (module.hot) { module.hot.accept() }

@@ -53,7 +53,11 @@ module.exports = function makeConfig() {
                 {
                   loader: 'babel-loader',
                   options: {
-                    presets: ['env', 'react', 'stage-0'],
+                    presets: [
+                      ['env', { 'modules': false }], 
+                      'react', 
+                      'stage-0'
+                    ],
                     plugins: [
                       require('babel-plugin-transform-runtime'),
                       require('babel-plugin-transform-object-assign'),
