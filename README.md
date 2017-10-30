@@ -8,6 +8,9 @@ development and testing purposes. This project is written with a .NET Core backe
 ### Prerequisites
 The only two things you need are the .NET Core SDK with CLI tools, Docker, and the ability to run a shell script or docker
 commands. All builds, testing and running are done in a docker container, so installing Node, NPM, etc. are done inside the container.
+
+**You need to set Docker on your machine to use at least 4 GB of memory or it will fail to build the runtime image.**
+SQL Server needs 4.0 GB to install. 
  
 * [Docker](https://docs.docker.com/engine/installation/ "Installing Docker") - latest stable version
 * [.NET Core](https://www.microsoft.com/net/download/core#/sdk) - 2.0
@@ -22,8 +25,7 @@ $ cd esquire1/esquire1
 We are doing everything, from testing to building to running the code, in a single Docker container. The docker container consists
 of SQL Server, MongoDB, .NET Core 2.0 and Node on an Ubuntu container. Since the .NET Core docker images are using Debian, 
 and the mssql-server-linux image uses Ubuntu, we had to use two separate environments for build the .NET solution and running
-the solution. **You need to set Docker on your machine to use at least 4 GB of memory or it will fail to build the runtime image.**
-SQL Server needs 4.0 GB to install. 
+the solution. 
 
 #### Environment Variables
 The frontend code is set up to use a **.env** file in the ClientApp/ directory. Any environment variables you set there will 
