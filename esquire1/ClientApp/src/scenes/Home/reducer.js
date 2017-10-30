@@ -12,14 +12,6 @@ export default function homeReducer(state = INITIAL_STATE, action) {
         ...state,
         projects: action.projects
       }
-    case types.GET_MONGOPROJECTS_SUCCESS:
-      return {
-        ...state,
-        mongoProjects: action.projects
-      }
-
-    case types.GET_MONGOPROJECTS_REQUEST:
-      return state
 
     case types.GET_PROJECTS_REQUEST:
       return state
@@ -32,12 +24,7 @@ export default function homeReducer(state = INITIAL_STATE, action) {
         ...state,
         projects: [...state.projects, action.project]
       }
-
-    case types.ADD_MONGOPROJECT_SUCCESS:
-      return {
-        ...state,
-        mongoProjects: [...state.mongoProjects, action.project]
-      }
+      
     default:
       return state
   }

@@ -33,38 +33,8 @@ export const addProjectLogic = createLogic({
   }
 })
 
-export const getMongoProjectLogic = createLogic({
-  type: types.GET_MONGOPROJECTS_REQUEST,
-  latest: true,
-  async process({ }, dispatch, done) {
-    try {
-      await axios.get(`${APP_API_URL}/projectmongo`)
-        .then(res => res.data)
-        .then(projects => dispatch(actions.getMongoProjectsSuccess(projects)))
-        .then(() => done())
-    } catch (err) {
-      done()
-    }
-  }
-})
-
-export const addMongoProjectLogic = createLogic({
-  type: types.ADD_MONGOPROJECT_REQUEST,
-  latest: true,
-  async process({ action }, dispatch, done) {
-    try {
-      await axios.post(`${APP_API_URL}/projectmongo`, action.project)
-        .then(dispatch(actions.addMongoProjectSuccess(action.project)))
-        .then(() => done())
-    } catch (err) {
-      done()
-    }
-  }
-})
 
 export default [
   addProjectLogic,
-  getProjectLogic,
-  getMongoProjectLogic,
-  addMongoProjectLogic
+  getProjectLogic
 ]

@@ -33,7 +33,6 @@
     <Exec Command="node ClientApp/scripts/build.js" />
     <!-- Remove dev node modules -->
     <Exec Command="npm prune" />
-    
     <ItemGroup>
       <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
@@ -47,5 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="dockerfiles\Dockerfile-compose" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces" />
   </ItemGroup>
 </Project>
