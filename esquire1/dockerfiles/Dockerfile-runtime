@@ -26,32 +26,9 @@ RUN curl http://packages.microsoft.com/keys/microsoft.asc | \
     && apt-get install -y dotnet-sdk-2.0.0 \
     && rm -rf /var/lib/apt/lists/*
 
-#RUN /opt/mssql/bin/mssql-conf setup
-
-## Install MongoDB
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 \
-    && echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" \
-     > /etc/apt/sources.list.d/mongodb-org-3.4.list \
-    && apt-get update \
-    && apt-get install -y mongodb-org \
-    && rm -rf /var/lib/apt/lists/*
-
-
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
     && apt-get install -y build-essential \
     && apt-get install -y nodejs \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
     && npm update -g npm \
     && npm install -g --no-optional webpack
-
-# Define working directory.
-VOLUME ["/data/db"]
-WORKDIR /data
-
-## Install SQL Server for Linux
-#RUN  echo "deb [arch=amd64] http://packages.microsoft.com/ubuntu/16.04/mssql-server xenial main" \
- #    > /etc/apt/sources.list.d/mssql-server.list \ 
- #   && curl http://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
- #   && apt-get update \
- #   && apt-get install -y mssql-server \
- #   && rm -rf /var/lib/apt/lists/*

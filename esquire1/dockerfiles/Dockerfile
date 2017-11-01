@@ -17,15 +17,10 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 ENV NODE_ENV=development
 ENV ASPNETCORE_URLS http://*:5000
 
-# MongoDB Ports
-EXPOSE 27017
-EXPOSE 28017
-
 # SQL Server port
 EXPOSE 1433
 
-# Make directory for mongodb
-RUN mkdir -p /data/db
+# For running frontend tests
 RUN npm install -g jest
 
 # This is where we'll put the code
